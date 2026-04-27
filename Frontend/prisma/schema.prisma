@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password      String
+  role          String         @default("admin")
+  announcements Announcement[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   // Can store rich text / HTML / Markdown
+  date      DateTime @default(now())
+  isPinned  Boolean  @default(false)
+  authorId  String?
+  author    User?    @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  category  String   // 'iman', 'budaya', 'sosial', 'ekonomi', 'tentang'
+  badge     String?  // Label manual (misal: Misa, Liturgi, Adat)
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Gallery {
+  id          String   @id @default(cuid())
+  title       String?
+  imageUrl    String
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  title     String
+  time      String
+  location  String
+  type      String   // e.g. "Mingguan", "Harian", "Khusus"
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
