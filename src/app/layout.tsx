@@ -6,6 +6,8 @@ import Footer from '@/components/ui/footer';
 export const metadata: Metadata = {
   title: 'Paroki Menyumbung | Desa Menyumbung, Ketapang, Kalimantan Barat',
   description: 'Website resmi Paroki Menyumbung - Informasi kegiatan iman, budaya, sosial, ekonomi, dan berita terbaru dari Desa Menyumbung, Kecamatan Hulu Sungai, Kabupaten Ketapang, Kalimantan Barat.',
+  manifest: '/manifest.json',
+  themeColor: '#2E5AA7',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

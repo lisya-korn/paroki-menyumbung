@@ -27,7 +27,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+    <nav className={`navbar ${scrolled || menuOpen ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar__inner">
         <Link href="/" className="navbar__logo">
           <img 
@@ -38,7 +38,7 @@ export default function Navbar() {
           Paroki Menyumbung
         </Link>
 
-        <div className="navbar__links" style={menuOpen ? { display: 'flex', position: 'fixed', inset: 0, top: 'var(--header-height)', background: 'rgba(255,255,255,0.98)', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', zIndex: 999 } : undefined}>
+        <div className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -52,7 +52,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="navbar__toggle"
+          className={`navbar__toggle ${menuOpen ? 'navbar__toggle--open' : ''}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >

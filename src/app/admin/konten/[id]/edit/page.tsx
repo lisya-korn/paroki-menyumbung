@@ -85,15 +85,19 @@ export default async function EditKonten({ params }: { params: { id: string } })
             <p style={{ fontSize: '0.75rem', color: '#6B7280', marginTop: '4px' }}>Foto yang diunggah akan ditambahkan ke foto yang sudah ada.</p>
           </div>
 
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Link Gambar (Pisahkan per baris)</label>
-            <textarea 
-              name="imageUrl"
-              defaultValue={post.imageUrl || ''}
-              placeholder="Contoh: /images/budaya-1.jpg&#10;Gunakan baris baru (Enter) untuk menambahkan lebih dari 1 foto."
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', outline: 'none', minHeight: '100px', resize: 'vertical' }}
-            />
-          </div>
+          {post.imageUrl && (
+            <div style={{ marginBottom: '16px' }}>
+              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Foto Saat Ini</label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {post.imageUrl.split('\n').filter(url => url.trim() !== '').map((url, index) => (
+                  <div key={index} style={{ position: 'relative', width: '100px', height: '100px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E5E7EB' }}>
+                    <img src={url} alt={`Existing ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                ))}
+              </div>
+              <input type="hidden" name="imageUrl" defaultValue={post.imageUrl} />
+            </div>
+          )}
 
           <div>
             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Isi Artikel</label>

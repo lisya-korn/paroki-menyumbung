@@ -2,23 +2,40 @@ import Link from 'next/link';
 import prisma from '@/lib/prisma';
 
 const categories = [
-  { icon: '⛪', title: 'Kegiatan Iman', desc: 'Jadwal misa, doa, katekese, dan kegiatan rohani paroki', href: '/kegiatan-iman' },
-  { icon: '🎭', title: 'Budaya', desc: 'Kekayaan budaya, adat istiadat, dan tradisi masyarakat Dayak', href: '/budaya' },
-  { icon: '📰', title: 'Berita', desc: 'Berita umum paroki, informasi desa, dan kabar terkini', href: '/berita' },
-  { icon: '🌾', title: 'Ekonomi', desc: 'UMKM, pertanian, hasil bumi, dan potensi ekonomi desa', href: '/ekonomi' },
+  { title: 'Kegiatan Iman', desc: 'Jadwal misa, doa, katekese dan kegiatan rohani paroki', href: '/kegiatan-iman', image: '/images/card1.jpeg' },
+  { title: 'Budaya', desc: 'Kekayaan budaya, adat istiadat, dan tradisi masyarakat', href: '/budaya', image: '/images/card2.jpg' },
+  { title: 'Berita', desc: 'Berita umum paroki, informasi desa, dan kabar terkini', href: '/berita', image: '/images/card3.jpg' },
+  { title: 'Ekonomi', desc: 'UMKM, pertanian, hasil bumi, dan potensi ekonomi desa', href: '/ekonomi', image: '/images/card4.jpg' },
 ];
 
 export default async function HomePage() {
   // Ambil berita terbaru dari database (hanya kategori artikel utama)
-  const latestPosts = await prisma.post.findMany({
+  const posts = await prisma.post.findMany({
     where: {
       category: {
-        in: ['kegiatan-iman', 'budaya', 'berita', 'ekonomi', 'sosial'] // 'sosial' tetap dimasukkan jika masih ada data lama
+        in: ['kegiatan-iman', 'budaya', 'berita', 'ekonomi', 'sosial']
       }
     },
     orderBy: { createdAt: 'desc' },
-    take: 3
+    take: 5 // Ambil lebih sedikit lebih banyak untuk digabung
   });
+
+  const rawAnnouncements = await prisma.announcement.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: 5
+  });
+
+  // Gabungkan dan normalisasi
+  const latestPosts = [
+    ...posts,
+    ...rawAnnouncements.map(ann => ({
+      ...ann,
+      category: 'pengumuman',
+      badge: 'Pengumuman'
+    }))
+  ]
+    .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 3);
 
   const announcements = await prisma.announcement.findMany({
     orderBy: [
@@ -37,7 +54,6 @@ export default async function HomePage() {
         <div className="hero__decoration hero__decoration--2" />
         <div className="hero__overlay" />
         <div className="container hero__content animate-in">
-          <span className="hero__label">🏡 Desa Menyumbung, Ketapang</span>
           <h1 className="hero__title">Selamat Datang di<br />Paroki Menyumbung</h1>
           <p className="hero__desc">
             Melayani umat dengan penuh kasih di Desa Menyumbung, Kecamatan Hulu Sungai,
@@ -146,9 +162,13 @@ export default async function HomePage() {
             {categories.map((cat) => (
               <Link href={cat.href} key={cat.title}>
                 <div className="feature-card">
-                  <div className="feature-card__icon">{cat.icon}</div>
-                  <h3 className="feature-card__title">{cat.title}</h3>
-                  <p className="feature-card__desc">{cat.desc}</p>
+                  <img src={cat.image} alt={cat.title} className="feature-card__image" />
+                  <div className="feature-card__overlay">
+                    <div className="feature-card__content">
+                      <span className="feature-card__label">{cat.icon} {cat.title}</span>
+                      <h3 className="feature-card__title">{cat.desc}</h3>
+                    </div>
+                  </div>
                 </div>
               </Link>
             ))}

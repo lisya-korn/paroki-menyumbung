@@ -1,0 +1,21 @@
+{
+  "name": "Paroki Menyumbung",
+  "short_name": "Paroki",
+  "description": "Website resmi Paroki Menyumbung, Desa Menyumbung, Ketapang.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2E5AA7",
+  "theme_color": "#2E5AA7",
+  "icons": [
+    {
+      "src": "/images/logoP.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logoP.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

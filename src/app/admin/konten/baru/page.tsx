@@ -70,14 +70,6 @@ export default function BaruKonten() {
             <p style={{ fontSize: '0.75rem', color: '#6B7280', marginTop: '4px' }}>Anda bisa memilih lebih dari 1 foto sekaligus.</p>
           </div>
 
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Atau Link Gambar Manual (Pisahkan per baris)</label>
-            <textarea 
-              name="imageUrl"
-              placeholder="Contoh: /images/budaya-1.jpg&#10;Gunakan baris baru (Enter) untuk menambahkan lebih dari 1 foto."
-              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', outline: 'none', minHeight: '80px', resize: 'vertical' }}
-            />
-          </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Isi Artikel</label>
