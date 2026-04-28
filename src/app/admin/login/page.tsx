@@ -25,12 +25,14 @@ export default function AdminLogin() {
 
       if (res?.error) {
         setError("Email atau password salah.");
+        setLoading(false);
       } else {
-        router.push("/admin/dashboard");
+        // Gunakan window.location.href daripada router.push untuk memastikan 
+        // middleware membaca cookie session yang baru diset (menghindari harus klik 2x)
+        window.location.href = "/admin/dashboard";
       }
     } catch (err) {
       setError("Terjadi kesalahan sistem.");
-    } finally {
       setLoading(false);
     }
   };

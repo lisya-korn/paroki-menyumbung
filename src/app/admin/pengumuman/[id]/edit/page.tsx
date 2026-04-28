@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { updateAnnouncement } from "../../actions";
 import { notFound } from "next/navigation";
 import SubmitButton from "@/components/admin/submit-button";
+import Link from "next/link";
 
 export default async function EditPengumuman({ params }: { params: { id: string } }) {
   const { id } = await params;
@@ -74,13 +75,13 @@ export default async function EditPengumuman({ params }: { params: { id: string 
             <div style={{ flex: 2 }}>
               <SubmitButton label="Simpan Perubahan" />
             </div>
-            <a 
+            <Link 
               href="/admin/pengumuman" 
               className="btn btn--outline" 
               style={{ flex: 1, textAlign: 'center', color: '#6B7280', borderColor: '#E5E7EB', padding: '14px', textDecoration: 'none' }}
             >
               Batal
-            </a>
+            </Link>
           </div>
         </form>
       </div>

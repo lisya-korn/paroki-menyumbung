@@ -23,7 +23,7 @@ export default function AdminNotifications() {
       newParams.delete('status');
       newParams.delete('message');
       const newUrl = window.location.pathname + (newParams.toString() ? `?${newParams.toString()}` : '');
-      window.history.replaceState({}, '', newUrl);
+      router.replace(newUrl, { scroll: false });
 
       // Sembunyikan toast setelah 5 detik
       const timer = setTimeout(() => {

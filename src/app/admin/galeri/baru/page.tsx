@@ -1,5 +1,6 @@
 import { createGalleryItem } from "../actions";
 import SubmitButton from "@/components/admin/submit-button";
+import Link from "next/link";
 
 export default function BaruGaleri() {
   return (
@@ -56,13 +57,13 @@ export default function BaruGaleri() {
             <div style={{ flex: 2 }}>
               <SubmitButton label="Unggah Sekarang" loadingLabel="Mengunggah..." />
             </div>
-            <a 
+            <Link 
               href="/admin/galeri" 
               className="btn btn--outline" 
               style={{ flex: 1, textAlign: 'center', color: '#6B7280', borderColor: '#E5E7EB', padding: '14px', textDecoration: 'none' }}
             >
               Batal
-            </a>
+            </Link>
           </div>
         </form>
       </div>

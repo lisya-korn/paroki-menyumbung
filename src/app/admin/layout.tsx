@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import AdminNotifications from "@/components/admin/notifications";
+import Link from "next/link";
 
 export default function AdminLayout({
   children,
@@ -13,7 +14,7 @@ export default function AdminLayout({
       </Suspense>
       <header style={{ background: 'var(--color-primary)', color: 'white', padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Panel Admin Paroki</h2>
-        <a href="/" style={{ color: 'white', textDecoration: 'underline', fontSize: '0.9rem' }}>Kembali ke Web Publik</a>
+        <Link href="/" style={{ color: 'white', textDecoration: 'underline', fontSize: '0.9rem' }}>Kembali ke Web Publik</Link>
       </header>
       <main>
         {children}

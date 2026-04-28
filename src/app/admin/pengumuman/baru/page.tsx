@@ -1,5 +1,6 @@
 import { createAnnouncement } from "../actions";
 import SubmitButton from "@/components/admin/submit-button";
+import Link from "next/link";
 
 export default function BaruPengumuman() {
   return (
@@ -59,13 +60,13 @@ export default function BaruPengumuman() {
             <div style={{ flex: 2 }}>
               <SubmitButton label="Simpan & Publikasikan" />
             </div>
-            <a 
+            <Link 
               href="/admin/pengumuman" 
               className="btn btn--outline" 
               style={{ flex: 1, textAlign: 'center', color: '#6B7280', borderColor: '#E5E7EB', padding: '14px', textDecoration: 'none' }}
             >
               Batal
-            </a>
+            </Link>
           </div>
         </form>
       </div>
