@@ -259,7 +259,6 @@ export default async function TentangPage() {
             <div className="info-card">
               <p className="info-card__text" style={{ marginBottom: '12px' }}>📍 Desa Menyumbung, Kecamatan Hulu Sungai</p>
               <p className="info-card__text" style={{ marginBottom: '12px' }}>📍 Kabupaten Ketapang, Kalimantan Barat</p>
-              <p className="info-card__text" style={{ marginBottom: '12px' }}>📧 paroki@menyumbung.id</p>
               <p className="info-card__text">📞  +62 822-5206-9686</p>
             </div>
           </div>

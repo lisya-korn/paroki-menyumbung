@@ -2,10 +2,10 @@ import Link from 'next/link';
 import prisma from '@/lib/prisma';
 
 const categories = [
+  { title: 'Berita', desc: 'Berita umum paroki, informasi desa, dan kabar terkini', href: '/berita', image: '/images/card3.jpg' },
   { title: 'Kegiatan Iman', desc: 'Jadwal misa, doa, katekese dan kegiatan rohani paroki', href: '/kegiatan-iman', image: '/images/card1.jpeg' },
   { title: 'Budaya', desc: 'Kekayaan budaya, adat istiadat, dan tradisi masyarakat', href: '/budaya', image: '/images/card2.jpg' },
-  { title: 'Berita', desc: 'Berita umum paroki, informasi desa, dan kabar terkini', href: '/berita', image: '/images/card3.jpg' },
-  { title: 'Ekonomi', desc: 'UMKM, pertanian, hasil bumi, dan potensi ekonomi desa', href: '/ekonomi', image: '/images/card4.jpg' },
+  { title: 'Ekonomi', desc: 'UMKM, pertanian, hasil bumi, dan potensi ekonomi desa', href: '/ekonomi', image: '/images/card5.jpg' },
 ];
 
 export default async function HomePage() {
@@ -165,7 +165,7 @@ export default async function HomePage() {
                   <img src={cat.image} alt={cat.title} className="feature-card__image" />
                   <div className="feature-card__overlay">
                     <div className="feature-card__content">
-                      <span className="feature-card__label">{cat.icon} {cat.title}</span>
+                      <span className="feature-card__label">{cat.title}</span>
                       <h3 className="feature-card__title">{cat.desc}</h3>
                     </div>
                   </div>

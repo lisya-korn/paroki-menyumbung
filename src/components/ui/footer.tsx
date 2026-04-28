@@ -41,6 +41,7 @@ export default function Footer() {
             <h4 className="footer__heading">Kontak</h4>
             <p className="footer__link">📍 Desa Menyumbung, Kec. Hulu Sungai</p>
             <p className="footer__link">📍 Kab. Ketapang, Kalbar</p>
+            <p className="footer__link">📞 +62 822-5206-9686</p>
           </div>
         </div>
 
