@@ -4,9 +4,14 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { uploadToCloudinary } from "@/lib/cloudinary";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export async function createGalleryItem(formData: FormData) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Unauthorized");
+
     const title = formData.get("title") as string;
     const manualImageUrl = formData.get("imageUrl") as string;
     const description = formData.get("description") as string;
@@ -63,6 +68,9 @@ export async function createGalleryItem(formData: FormData) {
 
 export async function deleteGalleryItem(id: string) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Unauthorized");
+
     await prisma.gallery.delete({ where: { id } });
     revalidatePath("/admin/galeri");
     revalidatePath("/galeri");

@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { uploadToCloudinary } from "@/lib/cloudinary";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 // Helper untuk menyimpan file ke Cloudinary
 async function saveUploadedFiles(formData: FormData): Promise<string[]> {
@@ -25,6 +27,9 @@ async function saveUploadedFiles(formData: FormData): Promise<string[]> {
 
 export async function createPost(formData: FormData) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Unauthorized");
+
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
     const category = formData.get("category") as string;
@@ -54,6 +59,7 @@ export async function createPost(formData: FormData) {
 
     revalidatePath("/admin/konten");
     revalidatePath(`/${category}`);
+    revalidatePath("/");
     redirect(`/admin/konten?status=success&message=${encodeURIComponent('Artikel berhasil diterbitkan!')}`);
   } catch (error: any) {
     if (error.message?.includes('NEXT_REDIRECT')) throw error;
@@ -64,6 +70,12 @@ export async function createPost(formData: FormData) {
 
 export async function updatePost(id: string, formData: FormData) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Unauthorized");
+
+    const oldPost = await prisma.post.findUnique({ where: { id } });
+    const oldCategory = oldPost?.category;
+
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
     const category = formData.get("category") as string;
@@ -93,7 +105,10 @@ export async function updatePost(id: string, formData: FormData) {
     });
 
     revalidatePath("/admin/konten");
+    revalidatePath("/");
+    if (oldCategory) revalidatePath(`/${oldCategory}`);
     revalidatePath(`/${category}`);
+    
     redirect(`/admin/konten?status=success&message=${encodeURIComponent('Perubahan artikel berhasil disimpan!')}`);
   } catch (error: any) {
     if (error.message?.includes('NEXT_REDIRECT')) throw error;
@@ -104,12 +119,16 @@ export async function updatePost(id: string, formData: FormData) {
 
 export async function deletePost(id: string) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Unauthorized");
+
     const post = await prisma.post.findUnique({ where: { id } });
     const category = post?.category;
 
     await prisma.post.delete({ where: { id } });
 
     revalidatePath("/admin/konten");
+    revalidatePath("/");
     if (category) revalidatePath(`/${category}`);
     // Untuk delete, kita biasanya tidak redirect tapi revalidate, 
     // tapi kita bisa redirect ke halaman yang sama dengan pesan

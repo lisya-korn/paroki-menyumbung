@@ -3,6 +3,7 @@ import { updatePost } from "../../actions";
 import { notFound } from "next/navigation";
 import SubmitButton from "@/components/admin/submit-button";
 import Link from "next/link";
+import ImageEditor from "@/components/admin/image-editor";
 
 export default async function EditKonten({ params }: { params: { id: string } }) {
   const { id } = await params;
@@ -87,17 +88,7 @@ export default async function EditKonten({ params }: { params: { id: string } })
           </div>
 
           {post.imageUrl && (
-            <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>Foto Saat Ini</label>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                {post.imageUrl.split('\n').filter(url => url.trim() !== '').map((url, index) => (
-                  <div key={index} style={{ position: 'relative', width: '100px', height: '100px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E5E7EB' }}>
-                    <img src={url} alt={`Existing ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                ))}
-              </div>
-              <input type="hidden" name="imageUrl" defaultValue={post.imageUrl} />
-            </div>
+            <ImageEditor initialImageUrl={post.imageUrl} />
           )}
 
           <div>
