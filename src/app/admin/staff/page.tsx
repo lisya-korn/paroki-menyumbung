@@ -3,6 +3,8 @@ import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import DeleteItemButton from '@/components/admin/delete-item-button';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export default async function AdminStaffPage() {
   const staff = await prisma.post.findMany({
@@ -12,6 +14,9 @@ export default async function AdminStaffPage() {
 
   async function deleteStaff(formData: FormData) {
     'use server';
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Unauthorized");
+
     const id = formData.get('id') as string;
     await prisma.post.delete({ where: { id } });
     revalidatePath('/admin/staff');

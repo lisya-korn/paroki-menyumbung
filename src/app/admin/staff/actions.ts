@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { uploadToCloudinary } from "@/lib/cloudinary";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 async function saveStaffFile(file: File) {
   if (!file || file.size === 0) return null;
@@ -13,6 +15,9 @@ async function saveStaffFile(file: File) {
 
 export async function createStaff(formData: FormData) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Unauthorized");
+
     const name = formData.get("name") as string;
     const position = formData.get("position") as string;
     const image = formData.get("image") as File;
@@ -40,6 +45,9 @@ export async function createStaff(formData: FormData) {
 
 export async function updateStaff(id: string, formData: FormData) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) throw new Error("Unauthorized");
+
     const name = formData.get("name") as string;
     const position = formData.get("position") as string;
     const image = formData.get("image") as File;

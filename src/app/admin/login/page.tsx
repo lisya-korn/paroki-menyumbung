@@ -1,15 +1,55 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { checkLoginBlock } from "./actions";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [timeLeft, setTimeLeft] = useState("");
   const router = useRouter();
+
+  // Cek blokir saat halaman dimuat
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    const checkStatus = async () => {
+      const res = await checkLoginBlock();
+      if (res.isBlocked && res.expiresAt) {
+        setIsBlocked(true);
+        
+        // Fungsi untuk update countdown
+        const updateTimer = () => {
+          const now = new Date().getTime();
+          const distance = res.expiresAt! - now;
+
+          if (distance < 0) {
+            setIsBlocked(false);
+            setError("");
+            clearInterval(timer);
+            return;
+          }
+
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+          setTimeLeft(`${minutes} menit ${seconds} detik`);
+          setError(`Terlalu banyak percobaan login. Silakan coba lagi dalam ${minutes}m ${seconds}s.`);
+        };
+
+        updateTimer();
+        timer = setInterval(updateTimer, 1000);
+      }
+    };
+
+    checkStatus();
+    return () => clearInterval(timer);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +64,12 @@ export default function AdminLogin() {
       });
 
       if (res?.error) {
-        setError("Email atau password salah.");
+        // Jika error mengandung kata tertentu, tampilkan pesan dari server
+        if (res.error.includes("percobaan login")) {
+          setError(res.error);
+        } else {
+          setError("Email atau password salah.");
+        }
         setLoading(false);
       } else {
         // Gunakan window.location.href daripada router.push untuk memastikan 
@@ -78,11 +123,17 @@ export default function AdminLogin() {
 
           <button 
             type="submit" 
-            disabled={loading}
+            disabled={loading || isBlocked}
             className="btn btn--primary" 
-            style={{ width: '100%', marginTop: '8px', opacity: loading ? 0.7 : 1 }}
+            style={{ 
+              width: '100%', 
+              marginTop: '8px', 
+              opacity: (loading || isBlocked) ? 0.7 : 1,
+              cursor: isBlocked ? 'not-allowed' : 'pointer',
+              background: isBlocked ? '#9CA3AF' : 'var(--color-accent)'
+            }}
           >
-            {loading ? 'Memproses...' : 'Masuk Dashboard'}
+            {loading ? 'Memproses...' : isBlocked ? 'Akses Dibekukan' : 'Masuk Dashboard'}
           </button>
         </form>
       </div>
