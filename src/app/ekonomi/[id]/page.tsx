@@ -68,16 +68,28 @@ export default async function EkonomiDetail({ params }: { params: Promise<{ id: 
           <aside className="article-sidebar">
             <div className="sidebar-card">
               <h3 className="sidebar-card__title">Konten Ekonomi Lainnya</h3>
-              <div className="sidebar-list">
-                {beritaLainnya.map((item: any) => (
-                  <Link href={`/ekonomi/${item.id}`} key={item.id} className="sidebar-item">
-                    <div className="sidebar-item__text">
-                      <div className="sidebar-item__title">{item.title}</div>
-                      <div className="sidebar-item__date">{new Date(item.createdAt).toLocaleDateString('id-ID')}</div>
-                    </div>
-                  </Link>
-                ))}
-                {beritaLainnya.length === 0 && <p style={{ fontSize: '0.9rem', color: '#6B7280' }}>Belum ada konten lain.</p>}
+              <div className="sidebar-card__body">
+                <div className="sidebar-list">
+                  {beritaLainnya.map((item: any) => {
+                    const thumb = item.imageUrl ? item.imageUrl.split('\n')[0] : null;
+                    return (
+                      <Link href={`/ekonomi/${item.id}`} key={item.id} className="sidebar-news">
+                        <div className="sidebar-news__thumb">
+                          {thumb ? (
+                            <img src={thumb} alt={item.title} />
+                          ) : (
+                            <div style={{ background: 'linear-gradient(135deg, #F8E6A0, #FFA62B)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.2rem' }}>💰</div>
+                          )}
+                        </div>
+                        <div className="sidebar-news__content">
+                          <div className="sidebar-news__title">{item.title}</div>
+                          <div className="sidebar-news__date">🗓 {new Date(item.createdAt).toLocaleDateString('id-ID')}</div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                  {beritaLainnya.length === 0 && <p style={{ padding: '0 16px', fontSize: '0.9rem', color: '#6B7280' }}>Belum ada konten lain.</p>}
+                </div>
               </div>
             </div>
           </aside>

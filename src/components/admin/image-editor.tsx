@@ -70,7 +70,7 @@ export default function ImageEditor({ initialImageUrl }: ImageEditorProps) {
           ))}
         </div>
       ) : (
-        <p style={{ fontSize: '0.875rem', color: '#6B7280', italic: 'true', marginBottom: '12px' }}>Belum ada foto.</p>
+        <p style={{ fontSize: '0.875rem', color: '#6B7280', fontStyle: 'italic', marginBottom: '12px' }}>Belum ada foto.</p>
       )}
       
       <input type="hidden" name="imageUrl" value={urls.join('\n')} />
