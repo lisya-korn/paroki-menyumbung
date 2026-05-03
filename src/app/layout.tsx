@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Paroki Menyumbung | Desa Menyumbung, Ketapang',
     description: 'Website resmi Paroki Menyumbung, Ketapang, Kalimantan Barat.',
-    url: 'https://paroki-menyumbung.vercel.app',
+    url: 'https://parokimenyumbung.com',
     siteName: 'Paroki Menyumbung',
     locale: 'id_ID',
     type: 'website',
@@ -58,8 +58,8 @@ const jsonLd = {
   "name": "Paroki Menyumbung",
   "alternateName": "Paroki Salib Suci Menyumbung",
   "description": "Gereja Katolik Paroki Menyumbung, Keuskupan Ketapang, Kalimantan Barat.",
-  "url": "https://paroki-menyumbung.vercel.app",
-  "logo": "https://paroki-menyumbung.vercel.app/images/logoP.png",
+  "url": "https://parokimenyumbung.com",
+  "logo": "https://parokimenyumbung.com/images/logoP.png",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Desa Menyumbung",

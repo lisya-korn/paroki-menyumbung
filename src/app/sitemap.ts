@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import prisma from '@/lib/prisma';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://paroki-menyumbung.vercel.app';
+  const baseUrl = 'https://parokimenyumbung.com';
 
   // Ambil semua berita untuk sitemap dinamis
   const posts = await prisma.post.findMany({
