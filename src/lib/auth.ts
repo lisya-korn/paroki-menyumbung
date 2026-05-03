@@ -108,9 +108,12 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/admin/login",
   },
+  jwt: {
+    maxAge: 15 * 60, // 15 menit - JWT token expires setelah ini
+  },
   session: {
     strategy: "jwt",
-    maxAge: 15 * 60, // 15 menit
+    maxAge: 15 * 60, // 15 menit - session expires setelah ini
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
