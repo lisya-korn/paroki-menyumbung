@@ -1,23 +1,23 @@
 import prisma from '@/lib/prisma';
 
 const visiMisi = {
-  visi: 'Umat Allah Keuskupan Ketapang bercita-cita untuk menjadi : PERSAUDARAAN MURID-MURID YESUS KRISTUS YANG SEMAKIN TANGGUH DALAM BERIMAN DAN DALAM PELAYANAN KASIH',
+  visi: 'Umat Allah Keuskupan Ketapang bercita-cita untuk menjadi: Persaudaraan murid-murid Yesus Kristus yang semakin tangguh dalam beriman dan dalam pelayanan kasih.',
   misi: [
-    'MEMBINA KADER IMAN',
-    'MENGAJARKAN IMAN PADA UMAT',
-    'MELAKSANAKAN PELAYANAN KASIH KEPADA YANG MENDERITA: KECIL, LEMAH, MENDERITA, TERSINGKIR DAN DIFABEL',
-    'MELAKSANAKAN PELAYANAN KASIH KEPADA ALAM CIPTAAN',
-    'MENGEMBANGKAN TATA KELOLA PENGGEMBALAAN, ADMINISTRASI, HARTA BENDA DAN KEUANGAN YANG DAPAT DIPERCAYA',
+    'Membina kader iman.',
+    'Mengajarkan iman pada umat.',
+    'Melaksanakan pelayanan kasih kepada yang menderita: kecil, lemah, menderita, tersingkir, dan difabel.',
+    'Melaksanakan pelayanan kasih kepada alam ciptaan.',
+    'Mengembangkan tata kelola penggembalaan, administrasi, harta benda, dan keuangan yang dapat dipercaya.',
   ],
-  spiritualitas: 'Cita-cita tersebut dilaksanakan dalam semangat KASIH YANG DICURAHKAN OLEH ROH KUDUS (Rm.5:5) DAN SETURUT TELADAN SANTA GEMMA GALGANI yang membuahkan NILAI-NILAI:',
+  spiritualitas: 'Cita-cita tersebut dilaksanakan dalam semangat kasih yang dicurahkan oleh Roh Kudus (Roma 5:5) dan seturut teladan Santa Gemma Galgani yang membuahkan nilai-nilai:',
   nilai: [
-    'BELA RASA',
-    'SABAR',
-    'RENDAH HATI',
-    'TAHAN BANTING',
-    'PROFESIONAL',
-    'KREATIF-INOVATIF',
-    'PARTISIPATIF',
+    'Bela Rasa',
+    'Sabar',
+    'Rendah Hati',
+    'Tahan Banting',
+    'Profesional',
+    'Kreatif-Inovatif',
+    'Partisipatif',
   ]
 };
 
@@ -60,11 +60,36 @@ const strukturOrganisasi = [
   }
 ];
 
+const wilayahParoki = [
+  { nama: "Menyumbung", pelindung: "Salib Suci", isPusat: true },
+  { nama: "Mariangin", pelindung: "Santa Maria Bunda Allah" },
+  { nama: "Sepanggang", pelindung: "Santo Yoseph" },
+  { nama: "Sengkuang", pelindung: "Santa Maria Ratu Pembawa Damai" },
+  { nama: "Senduruhan", pelindung: "Santo Yohanes Pembaptis" },
+  { nama: "Bahake", pelindung: "Sang Penebus" },
+  { nama: "Coba", pelindung: "Santo Paulus Rasul" },
+  { nama: "K. Ampon", pelindung: "Santa Maria" },
+  { nama: "Kenyabur", pelindung: "Santo Yoseph" },
+  { nama: "Teluk Songkam", pelindung: "Santo Fransiskus Xaverius" },
+  { nama: "Kenabung", pelindung: "Santo Mikhael Malaikat Agung" },
+  { nama: "Tanjung Bunut", pelindung: "Santo Markus" },
+  { nama: "Riam Perupuk", pelindung: "Santo Vinsensius Maria Strambi" }
+];
+
+const faqPelayanan = [
+  { tanya: "Mengapa tim kesehatan harus ada rekoleksi?", jawab: "Menyatukan ora et labora: berdoa dan bekerja." },
+  { tanya: "Mengapa harus ada pengukuhan?", jawab: "Supaya ada otoritas untuk melayani." },
+  { tanya: "Mengapa harus kerjasama dengan paroki dan keuskupan?", jawab: "Sebagai orang beriman, mewujudkan visi dan misi Keuskupan Ketapang." }
+];
+
 export default async function TentangPage() {
   const staff = await prisma.post.findMany({
     where: { category: 'staff' },
     orderBy: { createdAt: 'asc' }
   });
+
+  const pusatParoki = wilayahParoki.find(w => w.isPusat);
+  const stasiList = wilayahParoki.filter(w => !w.isPusat);
 
   return (
     <>
@@ -176,38 +201,44 @@ export default async function TentangPage() {
           </div>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div className="info-card" style={{ marginBottom: '24px', background: 'rgba(25, 20, 20, 0.85)', backdropFilter: 'blur(10px)', borderLeftColor: 'var(--color-accent)' }}>
-              <div className="info-card__icon">🎯</div>
-              <h3 className="info-card__title" style={{ color: 'var(--color-white)' }}>Visi</h3>
-              <p className="info-card__text" style={{ color: 'rgba(255,255,255,0.9)' }}>{visiMisi.visi}</p>
+              <h3 className="info-card__title" style={{ color: 'var(--color-accent)', letterSpacing: '1px', textTransform: 'uppercase', fontSize: '1.2rem', textAlign: 'center', marginBottom: '20px' }}>Visi</h3>
+              <p className="info-card__text" style={{ color: 'var(--color-white)', fontSize: '1.25rem', fontStyle: 'italic', lineHeight: '1.8', textAlign: 'center' }}>
+                "{visiMisi.visi}"
+              </p>
             </div>
             <div className="info-card" style={{ marginBottom: '24px', background: 'rgba(25, 20, 20, 0.85)', backdropFilter: 'blur(10px)', borderLeftColor: 'var(--color-accent)' }}>
-              <div className="info-card__icon">📋</div>
-              <h3 className="info-card__title" style={{ color: 'var(--color-white)' }}>Misi (Perutusan)</h3>
-              <p className="info-card__text" style={{ marginBottom: '16px', fontStyle: 'italic', color: 'rgba(255,255,255,0.8)' }}>
+              <h3 className="info-card__title" style={{ color: 'var(--color-accent)', letterSpacing: '1px', textTransform: 'uppercase', fontSize: '1.2rem', textAlign: 'center', marginBottom: '16px' }}>Misi (Perutusan)</h3>
+              <p className="info-card__text" style={{ marginBottom: '24px', color: 'rgba(255,255,255,0.7)', textAlign: 'center' }}>
                 Cita-cita (visi) hendak dicapai dengan:
               </p>
-              <ol style={{ paddingLeft: '20px', listStyle: 'lower-alpha' }}>
+              <ol style={{ paddingLeft: '0', listStyle: 'none', counterReset: 'misi-counter' }}>
                 {visiMisi.misi.map((m, i) => (
-                  <li key={i} className="info-card__text" style={{ marginBottom: '8px', color: 'rgba(255,255,255,0.9)' }}>{m}</li>
+                  <li key={i} className="info-card__text" style={{ marginBottom: '16px', color: 'rgba(255,255,255,0.9)', fontSize: '1.05rem', position: 'relative', paddingLeft: '40px' }}>
+                    <span style={{ position: 'absolute', left: 0, top: '-2px', fontSize: '1.2rem', color: 'rgba(255, 255, 255, 0.3)', fontWeight: 'bold' }}>0{i + 1}</span>
+                    {m}
+                  </li>
                 ))}
               </ol>
             </div>
             <div className="info-card" style={{ background: 'rgba(25, 20, 20, 0.85)', backdropFilter: 'blur(10px)', borderLeftColor: 'var(--color-accent)' }}>
-              <div className="info-card__icon">🕊️</div>
-              <h3 className="info-card__title" style={{ color: 'var(--color-white)' }}>Spiritualitas dan Nilai-Nilai</h3>
-              <p className="info-card__text" style={{ marginBottom: '16px', color: 'rgba(255,255,255,0.9)' }}>{visiMisi.spiritualitas}</p>
-              <ol style={{ paddingLeft: '20px', listStyle: 'lower-alpha' }}>
+              <h3 className="info-card__title" style={{ color: 'var(--color-accent)', letterSpacing: '1px', textTransform: 'uppercase', fontSize: '1.2rem', textAlign: 'center', marginBottom: '16px' }}>Spiritualitas dan Nilai-Nilai</h3>
+              <p className="info-card__text" style={{ marginBottom: '24px', color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem', lineHeight: '1.8', textAlign: 'center' }}>
+                {visiMisi.spiritualitas}
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
                 {visiMisi.nilai.map((n, i) => (
-                  <li key={i} className="info-card__text" style={{ marginBottom: '8px', color: 'rgba(255,255,255,0.9)' }}>{n}</li>
+                  <span key={i} style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '100px', color: 'var(--color-white)', fontSize: '0.9rem', letterSpacing: '1px' }}>
+                    {n}
+                  </span>
                 ))}
-              </ol>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Struktur */}
-      <section className="section">
+      <section className="section" style={{ background: 'white' }}>
         <div className="container">
           <div className="section-header">
             <span className="section-header__label">Struktur</span>
@@ -230,8 +261,7 @@ export default async function TentangPage() {
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                     />
                   ) : (
-                    <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #2E5AA7, #86C5FF)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem' }}>
-                      👤
+                    <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #2E5AA7, #86C5FF)' }}>
                     </div>
                   )}
                 </div>
@@ -248,6 +278,122 @@ export default async function TentangPage() {
         </div>
       </section>
 
+      {/* Wilayah Paroki */}
+      <section className="section" style={{ background: '#eef5ff' }}>
+        <div className="container">
+          <div className="section-header">
+            <span className="section-header__label">Wilayah</span>
+            <h2 className="section-header__title">Pusat Paroki & Stasi</h2>
+            <p style={{ color: 'var(--color-text-light)', marginTop: '8px', maxWidth: '600px', margin: '8px auto 0' }}>
+              Paroki Salib Suci Menyumbung mencakup 1 Pusat Paroki dan 12 Stasi yang tersebar di wilayah pelayanan.
+            </p>
+          </div>
+
+          <div style={{ marginBottom: '40px', display: 'flex', justifyContent: 'center' }}>
+            {pusatParoki && (
+              <div className="info-card hover-lift" style={{ 
+                borderLeftColor: 'var(--color-accent)',
+                background: 'white',
+                padding: '32px 24px',
+                width: '100%',
+                maxWidth: '450px',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                boxShadow: 'var(--shadow-md)',
+                borderRadius: 'var(--radius-lg)'
+              }}>
+                <div style={{ 
+                  display: 'inline-block', 
+                  padding: '6px 16px', 
+                  borderRadius: '100px', 
+                  background: 'rgba(235, 186, 116, 0.15)',
+                  color: '#c27e1f',
+                  fontSize: '0.85rem',
+                  fontWeight: 'bold',
+                  marginBottom: '16px'
+                }}>
+                  Pusat Paroki
+                </div>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '12px', color: 'var(--color-text-dark)' }}>
+                  {pusatParoki.nama}
+                </h3>
+                <div style={{ color: 'var(--color-text-light)', fontSize: '1rem' }}>
+                  Pelindung: <strong style={{ color: 'var(--color-text-dark)' }}>{pusatParoki.pelindung}</strong>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: '20px'
+          }}>
+            {stasiList.map((wilayah, index) => (
+              <div key={index} className="info-card hover-lift" style={{ 
+                borderLeftColor: 'var(--color-primary)',
+                background: 'white',
+                padding: '24px',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column'
+              }}>
+                <div>
+                  <div style={{ 
+                    display: 'inline-block', 
+                    padding: '6px 14px', 
+                    borderRadius: '100px', 
+                    background: 'rgba(46, 90, 167, 0.08)',
+                    color: 'var(--color-primary)',
+                    fontSize: '0.8rem',
+                    fontWeight: 'bold',
+                    marginBottom: '16px'
+                  }}>
+                    Stasi
+                  </div>
+                </div>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '12px', color: 'var(--color-text-dark)', flexGrow: 1 }}>
+                  {wilayah.nama}
+                </h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-text-light)', fontSize: '0.95rem' }}>
+                  <span>Pelindung: <strong style={{ color: 'var(--color-text-dark)' }}>{wilayah.pelindung}</strong></span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Prinsip Pelayanan */}
+      <section className="section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-header__label">Pelayanan</span>
+            <h2 className="section-header__title">Prinsip Pelayanan Pastoral</h2>
+          </div>
+          <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {faqPelayanan.map((faq, index) => (
+              <div key={index} className="hover-lift" style={{
+                background: 'white',
+                border: '1px solid rgba(0,0,0,0.05)',
+                borderRadius: 'var(--radius-lg)',
+                padding: '24px',
+                boxShadow: 'var(--shadow-sm)'
+              }}>
+                <h3 style={{ fontSize: '1.1rem', color: 'var(--color-primary)', marginBottom: '12px' }}>
+                  {faq.tanya}
+                </h3>
+                <p style={{ color: 'var(--color-text-light)', margin: 0, lineHeight: '1.6' }}>
+                  {faq.jawab}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Lokasi */}
       <section className="section section--cream">
         <div className="container">
@@ -257,9 +403,9 @@ export default async function TentangPage() {
           </div>
           <div style={{ maxWidth: '600px', margin: '0 auto' }}>
             <div className="info-card">
-              <p className="info-card__text" style={{ marginBottom: '12px' }}>📍 Desa Menyumbung, Kecamatan Hulu Sungai</p>
-              <p className="info-card__text" style={{ marginBottom: '12px' }}>📍 Kabupaten Ketapang, Kalimantan Barat</p>
-              <p className="info-card__text">📞  +62 822-5206-9686</p>
+              <p className="info-card__text" style={{ marginBottom: '12px' }}>Desa Menyumbung, Kecamatan Hulu Sungai</p>
+              <p className="info-card__text" style={{ marginBottom: '12px' }}>Kabupaten Ketapang, Kalimantan Barat</p>
+              <p className="info-card__text">+62 822-5206-9686</p>
             </div>
           </div>
         </div>

@@ -95,6 +95,9 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.role = user.role;
       }
+      // Reset iat setiap request supaya idle timeout berjalan benar.
+      // Dengan ini, 15 menit dihitung dari AKTIVITAS TERAKHIR, bukan dari login.
+      token.iat = Math.floor(Date.now() / 1000);
       return token;
     },
     async session({ session, token }) {
