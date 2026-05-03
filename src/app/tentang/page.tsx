@@ -28,32 +28,34 @@ const strukturOrganisasi = [
     image: '/images/panggilan-3.jpeg',
     imageStyle: { objectPosition: 'center 20%', transform: 'scale(1.8)' }
   },
-  { jabatan: 'Ketua Umum 1 (Pastor Rekan)',
+  {
+    jabatan: 'Ketua Umum 1 (Pastor Rekan)',
     nama: 'R.P Mauritius Lero, CP',
     image: '/images/pastor_rekan.jpeg',
     imageStyle: { objectPosition: 'center 20%', transform: 'scale(1.8)' }
   },
   { jabatan: 'Ketua 1', nama: 'Leo Pede' },
   { jabatan: 'Ketua 2', nama: 'Yohanes Jhon Fiser' },
-  { 
-    jabatan: 'Sekretaris 1', 
+  {
+    jabatan: 'Sekretaris 1',
     nama: 'Firmus Marjuki',
     image: '/images/sekret-1.jpeg',
     imageStyle: { objectPosition: 'center', transform: 'scale(1.0)' }
   },
-  { 
-    jabatan: 'Sekretaris 2', 
+  {
+    jabatan: 'Sekretaris 2',
     nama: 'Mardianto',
     image: '/images/sekret-2.jpeg',
     imageStyle: { objectPosition: 'center', transform: 'scale(1.0)' }
   },
-  { jabatan: 'Bendahara 1', 
-    nama: 'Wilhelmus Abur',  
+  {
+    jabatan: 'Bendahara 1',
+    nama: 'Wilhelmus Abur',
     image: '/images/bendahara_1.jpeg',
     imageStyle: { objectPosition: 'center', transform: 'scale(1.1)' }
   },
-  { 
-    jabatan: 'Bendahara 2', 
+  {
+    jabatan: 'Bendahara 2',
     nama: 'Margavita M. Elin',
     image: '/images/bendahara_2.jpeg',
     imageStyle: { objectPosition: 'center', transform: 'scale(1.1)' }
@@ -79,8 +81,7 @@ const wilayahParoki = [
 const faqPelayanan = [
   { tanya: "Mengapa tim kesehatan harus ada rekoleksi?", jawab: "Menyatukan ora et labora: berdoa dan bekerja." },
   { tanya: "Mengapa harus ada pengukuhan?", jawab: "Supaya ada otoritas untuk melayani." },
-  { tanya: "Mengapa harus bekerja sama dengan paroki dan keuskupan?", jawab: "Sebagai orang beriman, mewujudkan visi dan misi Keuskupan Ketapang." },
-  { tanya: "Visi & Misi Keuskupan Ketapang", jawab: "Beriman, bersaudara, dan berbelaskasih." }
+  { tanya: "Mengapa harus bekerja sama dengan paroki dan keuskupan?", jawab: "Sebagai orang beriman, mewujudkan visi dan misi Keuskupan Ketapang (Beriman, bersaudara, dan berbelaskasih)." }
 ];
 
 export default async function TentangPage() {
@@ -142,26 +143,26 @@ export default async function TentangPage() {
               </div>
             </div>
             <div className="about-grid__images-side">
-              <div style={{ 
-                display: 'flex', 
+              <div style={{
+                display: 'flex',
                 flexDirection: 'column',
                 gap: '24px'
               }}>
                 {[2, 3, 4, 5].map((num, index) => (
-                  <div key={num} style={{ 
-                    borderRadius: 'var(--radius-lg)', 
+                  <div key={num} style={{
+                    borderRadius: 'var(--radius-lg)',
                     overflow: 'hidden',
                     boxShadow: 'var(--shadow-md)',
                     aspectRatio: index === 1 ? '16 / 9' : undefined // Kunci rasio untuk foto kedua agar crop aktif
                   }}
-                  className="hover-lift"
+                    className="hover-lift"
                   >
-                    <img 
-                      src={`/images/p${num}.jpeg`} 
-                      alt={`Sejarah ${num}`} 
-                      style={{ 
-                        width: '100%', 
-                        height: index === 1 ? '100%' : 'auto', 
+                    <img
+                      src={`/images/p${num}.jpeg`}
+                      alt={`Sejarah ${num}`}
+                      style={{
+                        width: '100%',
+                        height: index === 1 ? '100%' : 'auto',
                         display: 'block',
                         objectFit: index === 1 ? 'cover' : undefined,
                         objectPosition: index === 1 ? 'center 70%' : undefined // Geser fokus ke bawah (crop atap)
@@ -176,9 +177,9 @@ export default async function TentangPage() {
       </section>
 
       {/* Visi Misi */}
-      <section 
-        className="section" 
-        style={{ 
+      <section
+        className="section"
+        style={{
           backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/images/bg2.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -187,11 +188,11 @@ export default async function TentangPage() {
       >
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <div style={{ 
+            <div style={{
               display: 'inline-block',
-              background: 'rgba(25, 20, 20, 0.85)', 
-              backdropFilter: 'blur(10px)', 
-              padding: '24px 48px', 
+              background: 'rgba(25, 20, 20, 0.85)',
+              backdropFilter: 'blur(10px)',
+              padding: '24px 48px',
               borderRadius: 'var(--radius-lg)',
               borderBottom: '4px solid var(--color-accent)',
               boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
@@ -248,18 +249,18 @@ export default async function TentangPage() {
           <div className="info-cards">
             {staff.map((item: any, i: number) => (
               <div className="info-card" key={i}>
-                <div className="info-card__icon" style={{ 
-                  padding: 0, 
-                  overflow: 'hidden', 
+                <div className="info-card__icon" style={{
+                  padding: 0,
+                  overflow: 'hidden',
                   aspectRatio: '3 / 4',
                   borderRadius: 'var(--radius-md)',
                   display: 'flex'
                 }}>
                   {item.imageUrl ? (
-                    <img 
-                      src={item.imageUrl.split('\n')[0]} 
-                      alt={item.title} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    <img
+                      src={item.imageUrl.split('\n')[0]}
+                      alt={item.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   ) : (
                     <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #2E5AA7, #86C5FF)' }}>
@@ -292,7 +293,7 @@ export default async function TentangPage() {
 
           <div style={{ marginBottom: '40px', display: 'flex', justifyContent: 'center' }}>
             {pusatParoki && (
-              <div className="info-card hover-lift" style={{ 
+              <div className="info-card hover-lift" style={{
                 borderLeftColor: 'var(--color-accent)',
                 background: 'white',
                 padding: '32px 24px',
@@ -305,10 +306,10 @@ export default async function TentangPage() {
                 boxShadow: 'var(--shadow-md)',
                 borderRadius: 'var(--radius-lg)'
               }}>
-                <div style={{ 
-                  display: 'inline-block', 
-                  padding: '6px 16px', 
-                  borderRadius: '100px', 
+                <div style={{
+                  display: 'inline-block',
+                  padding: '6px 16px',
+                  borderRadius: '100px',
                   background: 'rgba(235, 186, 116, 0.15)',
                   color: '#c27e1f',
                   fontSize: '0.85rem',
@@ -333,7 +334,7 @@ export default async function TentangPage() {
             gap: '20px'
           }}>
             {stasiList.map((wilayah, index) => (
-              <div key={index} className="info-card hover-lift" style={{ 
+              <div key={index} className="info-card hover-lift" style={{
                 borderLeftColor: 'var(--color-primary)',
                 background: 'white',
                 padding: '24px',
@@ -342,10 +343,10 @@ export default async function TentangPage() {
                 flexDirection: 'column'
               }}>
                 <div>
-                  <div style={{ 
-                    display: 'inline-block', 
-                    padding: '6px 14px', 
-                    borderRadius: '100px', 
+                  <div style={{
+                    display: 'inline-block',
+                    padding: '6px 14px',
+                    borderRadius: '100px',
                     background: 'rgba(46, 90, 167, 0.08)',
                     color: 'var(--color-primary)',
                     fontSize: '0.8rem',
