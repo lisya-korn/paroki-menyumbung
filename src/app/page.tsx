@@ -72,21 +72,26 @@ export default async function HomePage() {
         <div className="container">
           <div className="stats">
             <div className="stat-card">
-              <div className="stat-card__number">1.247</div>
+              <div className="stat-card__number">7.655</div>
               <div className="stat-card__label">Jiwa Penduduk</div>
             </div>
             <div className="stat-card">
-              <div className="stat-card__number">328</div>
+              <div className="stat-card__number">2.037</div>
               <div className="stat-card__label">Kepala Keluarga</div>
             </div>
             <div className="stat-card">
-              <div className="stat-card__number">5</div>
-              <div className="stat-card__label">Dusun / Lingkungan</div>
+              <div className="stat-card__number">2</div>
+              <div className="stat-card__label">Imam</div>
             </div>
             <div className="stat-card">
               <div className="stat-card__number">50+</div>
               <div className="stat-card__label">Tahun Pelayanan</div>
             </div>
+          </div>
+          <div style={{ textAlign: 'right', marginTop: '12px' }}>
+            <span style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', fontStyle: 'italic' }}>
+              *Data per tahun 2025
+            </span>
           </div>
         </div>
       </section>
