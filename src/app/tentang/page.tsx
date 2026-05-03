@@ -396,6 +396,28 @@ export default async function TentangPage() {
         </div>
       </section>
 
+      {/* E-Book Paroki */}
+      <section className="section" style={{ background: '#f8fafc' }}>
+        <div className="container">
+          <div className="section-header">
+            <span className="section-header__label">E-Book</span>
+            <h2 className="section-header__title">Buku Paroki Salib Suci Menyumbung</h2>
+            <p style={{ color: 'var(--color-text-light)', marginTop: '8px', maxWidth: '600px', margin: '8px auto 0' }}>
+              Silakan baca e-book profil dan panduan paroki kami secara interaktif di bawah ini.
+            </p>
+          </div>
+          
+          <div style={{ maxWidth: '1000px', margin: '0 auto', borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-xl)', border: '1px solid #e2e8f0' }}>
+            <iframe 
+              src="https://drive.google.com/file/d/1JlNSw21JoHnx9YvIdRY-b7axyyfhg1PR/preview" 
+              style={{ width: '100%', height: '800px', border: 'none' }} 
+              allow="autoplay"
+              title="Buku Paroki Salib Suci Menyumbung"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
       {/* Lokasi */}
       <section className="section section--cream">
         <div className="container">
