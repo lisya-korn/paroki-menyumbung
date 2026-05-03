@@ -79,7 +79,8 @@ const wilayahParoki = [
 const faqPelayanan = [
   { tanya: "Mengapa tim kesehatan harus ada rekoleksi?", jawab: "Menyatukan ora et labora: berdoa dan bekerja." },
   { tanya: "Mengapa harus ada pengukuhan?", jawab: "Supaya ada otoritas untuk melayani." },
-  { tanya: "Mengapa harus kerjasama dengan paroki dan keuskupan?", jawab: "Sebagai orang beriman, mewujudkan visi dan misi Keuskupan Ketapang." }
+  { tanya: "Mengapa harus bekerja sama dengan paroki dan keuskupan?", jawab: "Sebagai orang beriman, mewujudkan visi dan misi Keuskupan Ketapang." },
+  { tanya: "Visi & Misi Keuskupan Ketapang", jawab: "Beriman, bersaudara, dan berbelaskasih." }
 ];
 
 export default async function TentangPage() {
@@ -377,7 +378,7 @@ export default async function TentangPage() {
             {faqPelayanan.map((faq, index) => (
               <div key={index} className="hover-lift" style={{
                 background: 'white',
-                border: '1px solid rgba(0,0,0,0.05)',
+                border: '1.5px solid rgba(46, 90, 167, 0.3)', /* Border warna primary transparan keliling */
                 borderRadius: 'var(--radius-lg)',
                 padding: '24px',
                 boxShadow: 'var(--shadow-sm)'
