@@ -21,6 +21,15 @@ export const metadata: Metadata = {
   authors: [{ name: 'Paroki Menyumbung' }],
   creator: 'Paroki Menyumbung',
   publisher: 'Paroki Menyumbung',
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/apple-icon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/apple-icon.png',
+    },
+  },
   formatDetection: {
     email: false,
     address: false,
