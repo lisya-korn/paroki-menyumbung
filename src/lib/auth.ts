@@ -95,9 +95,6 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.role = user.role;
       }
-      // Reset iat setiap request supaya idle timeout berjalan benar.
-      // Dengan ini, 15 menit dihitung dari AKTIVITAS TERAKHIR, bukan dari login.
-      token.iat = Math.floor(Date.now() / 1000);
       return token;
     },
     async session({ session, token }) {
@@ -112,11 +109,11 @@ export const authOptions: NextAuthOptions = {
     signIn: "/admin/login",
   },
   jwt: {
-    maxAge: 15 * 60, // 15 menit - JWT token expires setelah ini
+    maxAge: 24 * 60 * 60, // 24 jam - expiration diatur oleh middleware untuk idle timeout
   },
   session: {
     strategy: "jwt",
-    maxAge: 15 * 60, // 15 menit - session expires setelah ini
+    maxAge: 24 * 60 * 60, // 24 jam
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

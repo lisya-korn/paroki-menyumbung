@@ -9,17 +9,18 @@ export default withAuth(
     const token = await getToken({ req });
     const isAuthPage = req.nextUrl.pathname.startsWith("/admin/login");
 
-    // Cek apakah token valid DAN belum expired
-    let isAuth = false;
+    let isAuth = !!token;
+    let isIdle = false;
+
     if (token) {
       const now = Math.floor(Date.now() / 1000);
-      const issuedAt = token.iat as number | undefined;
+      const lastActivityStr = req.cookies.get("admin-last-activity")?.value;
+      const lastActivity = lastActivityStr ? parseInt(lastActivityStr, 10) : (token.iat as number);
       
-      if (issuedAt && (now - issuedAt) > SESSION_MAX_AGE_SECONDS) {
-        // Token sudah expired, paksa logout
+      if (now - lastActivity > SESSION_MAX_AGE_SECONDS) {
+        // Token sudah expired karena idle, paksa logout
         isAuth = false;
-      } else {
-        isAuth = true;
+        isIdle = true;
       }
     }
 
@@ -36,10 +37,32 @@ export default withAuth(
         from += req.nextUrl.search;
       }
 
-      return NextResponse.redirect(
+      const response = NextResponse.redirect(
         new URL(`/admin/login?from=${encodeURIComponent(from)}`, req.url)
       );
+
+      if (isIdle) {
+        // Hapus token next-auth dan cookie activity agar benar-benar terlogout
+        const secure = req.nextUrl.protocol === "https:";
+        const cookieName = secure ? "__Secure-next-auth.session-token" : "next-auth.session-token";
+        response.cookies.delete(cookieName);
+        response.cookies.delete("admin-last-activity");
+      }
+
+      return response;
     }
+
+    // Jika terautentikasi dan tidak idle, update cookie activity
+    const response = NextResponse.next();
+    response.cookies.set("admin-last-activity", Math.floor(Date.now() / 1000).toString(), {
+      path: "/",
+      maxAge: SESSION_MAX_AGE_SECONDS,
+      httpOnly: true,
+      secure: req.nextUrl.protocol === "https:",
+      sameSite: "lax",
+    });
+
+    return response;
   },
   {
     callbacks: {
