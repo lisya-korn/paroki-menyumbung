@@ -84,7 +84,7 @@ export default async function HomePage() {
               <div className="stat-card__label">Imam</div>
             </div>
             <div className="stat-card">
-              <div className="stat-card__number">50+</div>
+              <div className="stat-card__number">65+</div>
               <div className="stat-card__label">Tahun Pelayanan</div>
             </div>
           </div>
