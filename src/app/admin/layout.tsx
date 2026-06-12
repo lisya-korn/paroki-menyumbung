@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import AdminNotifications from "@/components/admin/notifications";
+import AdminNavbar from "@/components/admin/admin-navbar";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -30,6 +31,7 @@ export default async function AdminLayout({
           <Link href="/" style={{ color: 'white', textDecoration: 'underline', fontSize: '0.9rem' }}>Kembali ke Web Publik</Link>
         </div>
       </header>
+      <AdminNavbar />
       <main>
         {children}
       </main>

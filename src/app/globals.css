@@ -1587,3 +1587,123 @@ h3 {
     transform: rotate(360deg);
   }
 }
+
+/* ---- Admin Navigation Bar ---- */
+.admin-nav {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.admin-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.admin-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.admin-nav__links::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-light);
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.admin-nav__link:hover {
+  color: var(--color-primary);
+  background: rgba(46, 90, 167, 0.04);
+}
+
+.admin-nav__link--active {
+  color: var(--color-primary);
+  font-weight: 600;
+  border-bottom-color: var(--color-accent);
+  background: rgba(46, 90, 167, 0.06);
+}
+
+.admin-nav__link-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.admin-nav__link-label {
+  line-height: 1;
+}
+
+.admin-nav__logout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #DC2626;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.admin-nav__logout:hover {
+  background: #FEE2E2;
+  border-color: #FCA5A5;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .admin-nav__inner {
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+  }
+
+  .admin-nav__links {
+    width: 100%;
+    padding: 0 12px;
+    gap: 0;
+  }
+
+  .admin-nav__link {
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    gap: 6px;
+  }
+
+  .admin-nav__link-icon {
+    font-size: 1rem;
+  }
+
+  .admin-nav__logout {
+    width: calc(100% - 24px);
+    justify-content: center;
+    margin: 8px 12px;
+    padding: 10px;
+  }
+}
