@@ -1,21 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { deleteFromCloudinary } from '@/lib/cloudinary';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 // Kategori yang TERKENA auto-delete (bukan tentang/staff/pengumuman/galeri)
 const CATEGORIES_TO_CLEANUP = ['berita', 'kegiatan-iman', 'budaya', 'ekonomi'];
 
 export async function GET(request: NextRequest) {
-  // Verifikasi secret key untuk keamanan
   const secret = request.nextUrl.searchParams.get('secret');
   const cronSecret = process.env.CRON_SECRET;
 
-  // Vercel Cron mengirim header Authorization
+  // Izinkan jika: (1) Vercel Cron header, (2) secret cocok, (3) admin login
   const authHeader = request.headers.get('authorization');
-  const isVercelCron = authHeader === `Bearer ${cronSecret}`;
-  const isManualWithSecret = secret === cronSecret;
+  const isVercelCron = cronSecret && authHeader === `Bearer ${cronSecret}`;
+  const isManualWithSecret = cronSecret && secret === cronSecret;
+  const session = await getServerSession(authOptions);
+  const isAdminSession = !!session;
 
-  if (!isVercelCron && !isManualWithSecret) {
+  if (!isVercelCron && !isManualWithSecret && !isAdminSession) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
