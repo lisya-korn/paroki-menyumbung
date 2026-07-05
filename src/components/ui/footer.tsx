@@ -45,8 +45,21 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="footer__bottom">
-          © {new Date().getFullYear()} Paroki Menyumbung. Hak Cipta Dilindungi.
+        <div className="footer__bottom" style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center', textAlign: 'center' }}>
+          <span>© {new Date().getFullYear()} Paroki Menyumbung. Hak Cipta Dilindungi.</span>
+          <span style={{
+            fontSize: '0.75rem',
+            color: 'rgba(255,255,255,0.45)',
+            letterSpacing: '0.05em',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, opacity: 0.6 }}>
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/>
+            </svg>
+            Dikembangkan oleh <strong style={{ color: 'rgba(255,255,255,0.65)' }}>KKN UAJY 89 &mdash; Kelompok 74</strong>
+          </span>
         </div>
       </div>
     </footer>

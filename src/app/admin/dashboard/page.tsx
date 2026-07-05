@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
+import CleanupButton from "../../../components/admin/cleanup-button";
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions);
@@ -16,6 +17,26 @@ export default async function AdminDashboard() {
   const kontenCount = await prisma.post.count({ where: { category: { not: 'staff' } } });
   const galeriCount = await prisma.gallery.count();
   const staffCount = await prisma.post.count({ where: { category: 'staff' } });
+
+  // Hitung konten yang akan kadaluarsa dalam 7 hari ke depan
+  const fiveMonthsAgo = new Date();
+  fiveMonthsAgo.setMonth(fiveMonthsAgo.getMonth() - 5);
+  const sevenDaysFromExpiry = new Date(fiveMonthsAgo);
+  sevenDaysFromExpiry.setDate(sevenDaysFromExpiry.getDate() + 7);
+
+  const expiredCount = await prisma.post.count({
+    where: {
+      category: { in: ['berita', 'kegiatan-iman', 'budaya', 'ekonomi'] },
+      createdAt: { lt: fiveMonthsAgo },
+    },
+  });
+
+  const soonExpireCount = await prisma.post.count({
+    where: {
+      category: { in: ['berita', 'kegiatan-iman', 'budaya', 'ekonomi'] },
+      createdAt: { gte: fiveMonthsAgo, lt: sevenDaysFromExpiry },
+    },
+  });
 
   return (
     <div className="container" style={{ padding: '40px 20px', minHeight: '60vh' }}>
@@ -71,6 +92,33 @@ export default async function AdminDashboard() {
         </div>
 
       </div>
+
+        {/* Card Manajemen Storage */}
+        <div style={{ background: 'var(--color-white)', borderRadius: '12px', padding: '24px', boxShadow: 'var(--shadow-sm)', borderTop: '4px solid #EF4444', gridColumn: '1 / -1', marginTop: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <span style={{ fontSize: '2rem' }}>🗂️</span>
+                <h3 style={{ margin: 0 }}>Manajemen Storage</h3>
+              </div>
+              <p style={{ color: 'var(--color-text-light)', margin: 0, fontSize: '0.95rem' }}>
+                Konten (Berita, Iman, Budaya, Ekonomi) otomatis dihapus setelah <strong>5 bulan</strong> sejak upload, termasuk foto di Cloudinary.
+              </p>
+              <div style={{ display: 'flex', gap: '24px', marginTop: '16px', flexWrap: 'wrap' }}>
+                <div style={{ background: '#FEF2F2', padding: '10px 16px', borderRadius: '8px', borderLeft: '3px solid #EF4444' }}>
+                  <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#EF4444' }}>{expiredCount}</div>
+                  <div style={{ fontSize: '0.8rem', color: '#6B7280' }}>Sudah kadaluarsa</div>
+                </div>
+                <div style={{ background: '#FFFBEB', padding: '10px 16px', borderRadius: '8px', borderLeft: '3px solid #F59E0B' }}>
+                  <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#F59E0B' }}>{soonExpireCount}</div>
+                  <div style={{ fontSize: '0.8rem', color: '#6B7280' }}>Kadaluarsa dalam 7 hari</div>
+                </div>
+              </div>
+            </div>
+            <CleanupButton secret={process.env.CRON_SECRET || ''} />
+          </div>
+        </div>
+
     </div>
   );
 }

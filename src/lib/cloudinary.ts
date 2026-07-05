@@ -29,3 +29,38 @@ export async function uploadToCloudinary(file: File, folder: string) {
     ).end(buffer);
   });
 }
+
+/**
+ * Ekstrak public_id dari URL Cloudinary.
+ * Contoh URL: https://res.cloudinary.com/xxx/image/upload/v123/paroki-menyumbung/konten/abc.jpg
+ * → public_id: "paroki-menyumbung/konten/abc"
+ */
+export function extractPublicId(url: string): string | null {
+  try {
+    const match = url.match(/\/upload\/(?:v\d+\/)?(.+?)(?:\.[a-z]+)?$/i);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Hapus file dari Cloudinary berdasarkan URL-nya.
+ * Mendukung gambar (image) dan PDF/file lain (raw).
+ */
+export async function deleteFromCloudinary(url: string): Promise<boolean> {
+  try {
+    const publicId = extractPublicId(url);
+    if (!publicId) return false;
+
+    // Coba hapus sebagai image dulu, lalu raw jika gagal
+    const result = await cloudinary.uploader.destroy(publicId, { resource_type: 'image' });
+    if (result.result === 'ok') return true;
+
+    const resultRaw = await cloudinary.uploader.destroy(publicId, { resource_type: 'raw' });
+    return resultRaw.result === 'ok';
+  } catch (err) {
+    console.error('Cloudinary delete error:', err);
+    return false;
+  }
+}
