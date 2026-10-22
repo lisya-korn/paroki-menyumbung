@@ -72,7 +72,7 @@ export default async function HomePage() {
         <div className="container">
           <div className="stats">
             <div className="stat-card">
-              <div className="stat-card__number">7.655</div>
+              <div className="stat-card__number">9.296</div>
               <div className="stat-card__label">Jiwa Penduduk</div>
             </div>
             <div className="stat-card">
@@ -80,8 +80,12 @@ export default async function HomePage() {
               <div className="stat-card__label">Kepala Keluarga</div>
             </div>
             <div className="stat-card">
-              <div className="stat-card__number">2</div>
+              <div className="stat-card__number">1</div>
               <div className="stat-card__label">Imam</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-card__number">1</div>
+              <div className="stat-card__label">Diakon</div>
             </div>
             <div className="stat-card">
               <div className="stat-card__number">65+</div>
@@ -90,7 +94,7 @@ export default async function HomePage() {
           </div>
           <div style={{ textAlign: 'right', marginTop: '12px' }}>
             <span style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)', fontStyle: 'italic' }}>
-              *Data per tahun 2025
+              *Data per tahun 2026
             </span>
           </div>
         </div>
