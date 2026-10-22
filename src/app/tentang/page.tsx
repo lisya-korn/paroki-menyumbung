@@ -176,6 +176,45 @@ export default async function TentangPage() {
         </div>
       </section>
 
+      {/* Video Paroki */}
+      <section className="section" style={{ background: '#f8fafc' }}>
+        <div className="container">
+          <div className="section-header">
+            <span className="section-header__label">Video</span>
+            <h2 className="section-header__title">Mengenal Paroki Menyumbung</h2>
+            <p style={{ color: 'var(--color-text-light)', marginTop: '8px', maxWidth: '600px', margin: '8px auto 0' }}>
+              Tonton video untuk mengenal lebih dekat kehidupan dan kegiatan Paroki Salib Suci Menyumbung.
+            </p>
+          </div>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <div style={{
+              position: 'relative',
+              paddingBottom: '56.25%',
+              height: 0,
+              overflow: 'hidden',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: 'var(--shadow-xl)',
+              border: '1px solid #e2e8f0'
+            }}>
+              <iframe
+                src="https://www.youtube.com/embed/uSsMi-7Uxng"
+                title="Video Paroki Menyumbung"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  border: 'none'
+                }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Visi Misi */}
       <section
         className="section"
